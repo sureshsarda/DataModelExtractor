@@ -22,7 +22,7 @@ import ui.views.Feedback;
 @SuppressWarnings("serial")
 public class EditorGroupPanel extends JTabbedPane
 {
-	TestSentence sentence;
+	TestSentence testSentence;
 
 	public void setTestSentence(TestSentence sentence)
 	{
@@ -32,30 +32,28 @@ public class EditorGroupPanel extends JTabbedPane
 
 	public void updateLayout(TestSentence sent)
 	{
-		this.sentence = sent;
-
+		this.testSentence = sent;
 		this.removeAll();
 
-		int optionCount = 0;
-		for (int i = 0; i < sentence.getLookupResults().size(); i++)
+		for (int i = 0; i < testSentence.getLookupResults().size(); i++)
 		{
 			EditorPanel pan = new EditorPanel();
-
+			pan.setTestSentence(this.testSentence, i);
+			
 			this.addTab("Option: " + i, pan);
-			pan.setLookupObjectIndex(i);
 		}
 	}
 
 	public void setDataModel(Model model)
 	{
-		sentence.setDataModel(model);
+		testSentence.setDataModel(model);
 
 		Container obj = this;
 		while (!obj.getClass().equals(Feedback.class))
 			obj = obj.getParent();
 
 		Feedback parent = (Feedback) obj;
-		parent.dataModelUpdated(sentence);
+		parent.dataModelUpdated(testSentence);
 	}
 
 	public void updateTabImages()
@@ -72,17 +70,4 @@ public class EditorGroupPanel extends JTabbedPane
 		}
 		validate();
 	}
-	// @Override
-	// protected void paintComponent(Graphics g)
-	// {
-	// super.paintComponent(g);
-	//
-	// BufferedImage img = new BufferedImage(pan.getPreferredSize().width,
-	// pan.getPreferredSize().height, BufferedImage.TYPE_INT_ARGB);
-	//
-	// pan.paint(img.getGraphics());
-	//
-	// ImageIcon icon = new ImageIcon(img);
-	// }
-
 }

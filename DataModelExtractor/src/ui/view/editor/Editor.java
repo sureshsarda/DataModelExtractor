@@ -19,6 +19,7 @@ import java.awt.RenderingHints;
 import javax.swing.JPanel;
 
 import nlp.objects.Model;
+import nlp.test.TestSentence;
 import ui.shapes.Shape;
 import ui.shapes.Shape.ShapeType;
 import util.Tuple;
@@ -27,10 +28,37 @@ import util.Tuple;
 public class Editor extends JPanel
 {
 	protected EditorMouseAdapter mouseAdapter;
-	public DataModelAdapter data;
-	private Shape selectedShape;
+	TestSentence testSentence;
+	int lookupObjectId;
+	Model model;
 
-	public void setModel(Model model)
+	public DataModelAdapter data;
+	Shape selectedShape;
+
+	public Editor()
+	{
+		initComponents();
+	}
+	
+	public void setTestSentence(TestSentence testSentence, int lookupObjectId)
+	{
+
+		this.lookupObjectId = lookupObjectId;
+		this.testSentence = testSentence;
+		if (lookupObjectId == -1)
+		{
+			model = null;
+		}
+		else
+		{
+			model = testSentence.getLookupResults().get(lookupObjectId).getDataModel();
+		}
+
+		this.setDataModel(model);
+
+	}
+
+	private void initComponents()
 	{
 		this.setVisible(true);
 		this.setLayout(null);
@@ -43,17 +71,14 @@ public class Editor extends JPanel
 		this.addMouseListener(mouseAdapter);
 		this.addMouseMotionListener(mouseAdapter);
 
-		this.setDataModel(model);
-
 	}
-
 	@Override
 	public Component getComponentAt(Point p)
 	{
 		return findComponentAt(p);
 	}
 
-	private void setDataModel(Model model)
+	public void setDataModel(Model model)
 	{
 		data = new DataModelAdapter(model);
 		this.paintDataModel();

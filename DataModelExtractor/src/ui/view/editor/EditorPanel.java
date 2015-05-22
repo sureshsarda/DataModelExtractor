@@ -23,25 +23,25 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import nlp.objects.Model;
+import nlp.test.TestSentence;
 
 @SuppressWarnings("serial")
 public class EditorPanel extends JPanel
 {
 	Editor editor;
-	int lookupObjectIndex;
+	TestSentence testSentence;
+	int lookupObjectId;
 	EditorGroupPanel egpParent;
 
-	public void setLookupObjectIndex(int lookupObjectIndex)
+	public void setTestSentence(TestSentence sentence, int lookupObjectId)
 	{
-		this.lookupObjectIndex = lookupObjectIndex;
+		this.testSentence = sentence;
+		this.lookupObjectId = lookupObjectId;
 		initComponents();
 	}
 
 	private void initComponents()
 	{
-		egpParent = this.getParentEditorGroupPanel();
-		Model model = egpParent.sentence.getLookupResults().get(lookupObjectIndex).getDataModel();
-
 		this.setLayout(new BorderLayout());
 		this.setBackground(Color.WHITE);
 		this.setVisible(true);
@@ -56,14 +56,14 @@ public class EditorPanel extends JPanel
 		// "px'>" + sentence + "</body></html>");
 		sentenceLabel.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		sentenceLabel.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
-		sentenceLabel.setText(egpParent.sentence.getValue());
+		sentenceLabel.setText(testSentence.getValue());
 		this.add(sentenceLabel, BorderLayout.PAGE_START);
 
 		/*
 		 * Center Editor Panel
 		 */
 		editor = new Editor();
-		editor.setModel(model);
+		editor.setTestSentence(this.testSentence, this.lookupObjectId);
 		editor.setSize(300, 300);
 		editor.setLocation(10, 10);
 		this.add(editor, BorderLayout.CENTER);
@@ -96,7 +96,7 @@ public class EditorPanel extends JPanel
 	{
 		Model data = editor.data.getDataModel();
 		egpParent.setDataModel(data);
-		egpParent.sentence.setResults(null);
+		egpParent.testSentence.setResults(null);
 	}
 
 	private EditorGroupPanel getParentEditorGroupPanel()

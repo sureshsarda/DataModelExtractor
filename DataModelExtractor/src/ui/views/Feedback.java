@@ -58,7 +58,7 @@ public class Feedback extends JInternalFrame
 		if (para == null)
 		{
 			Editor ed = new Editor();
-			ed.setModel(null);
+			ed.setTestSentence(null, -1);
 			this.add(ed, BorderLayout.CENTER);
 		}
 		else
@@ -161,7 +161,7 @@ public class Feedback extends JInternalFrame
 		Model paraModel = new Model(original.getModelAsList());
 		System.out.println("New Paragraph Model:\n" + paraModel.toString());
 		paragraphEditor = new Editor();
-		paragraphEditor.setModel(paraModel);
+		paragraphEditor.setDataModel(paraModel);
 		rightPanel.add(paragraphEditor, BorderLayout.CENTER);
 
 		rightPanel.validate();
