@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Model>
+    <Branch>
+        <nodes>DT NN VBZ DT NN WDT VBZ NNS</nodes>
+        <leafInformation>
+            <sentences>The restaurant has a bar which serves drinks.</sentences>
+            <dataModel>
+                <Entities>
+                    <Entity Id="0" Length="1" WordId="1">
+                        <Name>restaurant</Name>
+                        <Attributes/>
+                        <Superclass></Superclass>
+                    </Entity>
+                    <Entity Id="1" Length="1" WordId="4">
+                        <Name>bar</Name>
+                        <Attributes/>
+                        <Superclass></Superclass>
+                    </Entity>
+                    <Entity Id="2" Length="1" WordId="7">
+                        <Name>drinks</Name>
+                        <Attributes/>
+                        <Superclass></Superclass>
+                    </Entity>
+                </Entities>
+                <Relationnships>
+                    <Relationship Id="0" Length="1" WordId="6">
+                        <Name>serves</Name>
+                        <Connects>
+                            <Entity EntityId="1" Participation="">
+<Name>bar</Name>
+                            </Entity>
+                            <Entity EntityId="2" Participation="">
+<Name>drinks</Name>
+                            </Entity>
+                        </Connects>
+                    </Relationship>
+                </Relationnships>
+            </dataModel>
+        </leafInformation>
+    </Branch>
