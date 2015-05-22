@@ -22,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import ui.views.Feedback;
 import nlp.objects.Model;
 import nlp.test.TestSentence;
 
@@ -95,17 +96,29 @@ public class EditorPanel extends JPanel
 	public void saveThisDiagram_click()
 	{
 		Model data = editor.data.getDataModel();
-		egpParent.setDataModel(data);
-		egpParent.testSentence.setResults(null);
+		this.testSentence.setResults(null);
+		this.testSentence.setDataModel(data);
+		
+		Container obj = this;
+		while (!obj.getClass().equals(Feedback.class))
+			obj = obj.getParent();
+
+		Feedback parent = (Feedback) obj;
+		parent.dataModelUpdated(testSentence);
 	}
 
 	private EditorGroupPanel getParentEditorGroupPanel()
 	{
-		Container parent = this.getParent();
-		while (parent.getClass() != EditorGroupPanel.class)
+		if (egpParent == null)
 		{
-			parent = parent.getParent();
+
+			Container parent = this.getParent();
+			while (parent.getClass() != EditorGroupPanel.class)
+			{
+				parent = parent.getParent();
+			}
+			egpParent = (EditorGroupPanel) parent;
 		}
-		return (EditorGroupPanel) parent;
+		return egpParent;
 	}
 }

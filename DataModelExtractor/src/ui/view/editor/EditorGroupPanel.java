@@ -44,18 +44,6 @@ public class EditorGroupPanel extends JTabbedPane
 		}
 	}
 
-	public void setDataModel(Model model)
-	{
-		testSentence.setDataModel(model);
-
-		Container obj = this;
-		while (!obj.getClass().equals(Feedback.class))
-			obj = obj.getParent();
-
-		Feedback parent = (Feedback) obj;
-		parent.dataModelUpdated(testSentence);
-	}
-
 	public void updateTabImages()
 	{
 		invalidate();

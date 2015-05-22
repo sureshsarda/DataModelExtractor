@@ -33,6 +33,7 @@ public class Editor extends JPanel
 	Model model;
 
 	public DataModelAdapter data;
+	
 	Shape selectedShape;
 
 	public Editor()
